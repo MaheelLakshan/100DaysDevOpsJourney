@@ -1,0 +1,49 @@
+The goal is to install git on the Storage Server (ststor01) and create a bare repository called /opt/games.git.
+
+From the jump host, connect to the Storage Server:
+ssh natasha@ststor01
+Bl@kW
+
+<!-- Install git with yum -->
+On the Storage Server, run:
+sudo yum install -y git
+
+<!-- Create the bare repository -->
+A bare repo is different from a normal repo:
+A normal repo has a working directory (you can edit files).
+A bare repo only contains the .git data (meant for sharing/pushing).
+To create it:
+sudo mkdir -p /opt/games.git
+cd /opt/games.git
+sudo git init --bare
+
+<!-- Verify the repo -->
+cd /opt/games.git
+ls
+
+
+✅ Expected verification:
+branches  config  description  HEAD  hooks  info  objects  refs
+
+👉::::: My Explanation ::::::
+
+<!-- Why do we install git on the server? -->
+Think of git as a tool (like MS Word is for writing docs, git is for managing code).
+To store code on a server, the server must have git installed.
+Without git, the server wouldn’t know how to handle pushes/pulls from developers.
+
+<!-- What is a bare repository? -->
+Normally, when you make a git project on your laptop, it has code files + a hidden .git folder.
+But on a central server, we don’t want editable files, we only want a central storage place for the code.
+That’s why we create a bare repo → it has only the .git part (no working code files).
+
+<!-- What .git means -->
+
+When you see a folder or file ending with .git, it usually refers to a Git repository.
+.git folder → contains all the metadata, history, branches, commits, and configuration for a git project.
+It does not contain the editable code files in a bare repository.
+Essentially, .git = the “brain” of a git repository.
+
+
+
+
