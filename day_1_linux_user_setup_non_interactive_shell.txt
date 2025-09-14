@@ -15,3 +15,29 @@ getent passwd anita
 
 ✅ Expected output for the last command should look something like:
 anita:x:1002:1002::/home/anita:/sbin/nologin
+
+👉::::: My Explanation ::::::
+
+We’re creating a system user (anita) that tools (like the backup agent) can use, but humans cannot log in and run commands with. 
+This improves security and ensures the user is used only for its intended purpose.
+
+sudo useradd -s /sbin/nologin anita
+
+useradd → command to create a new user.
+
+-s /sbin/nologin → tells Linux what shell the user should use.
+
+Normally, when you create a user, it gets a shell like /bin/bash.
+That means the user can log in, run commands, etc.
+But here, we don’t want anita to log in and run commands.
+So we give them a non-interactive shell: /sbin/nologin.
+
+Non-interactive shell =
+The user account exists (for authentication, running background processes, or tools like backup agents), but if someone tries to log in as that user, they’ll get a message like:
+This account is currently not available.
+
+
+and then disconnected.
+This is a security measure:
+Some users are meant only for services or automated tools, not for humans to log in.
+It prevents someone from exploiting that account to open a real shell.
