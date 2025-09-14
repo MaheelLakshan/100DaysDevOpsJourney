@@ -1,0 +1,17 @@
+I need to create a user anita with a non-interactive shell (like /sbin/nologin) on App Server 3 (stapp03).
+
+# Step 1: SSH into App Server 3
+ssh banner@stapp03
+
+# password: BigGr33n
+
+# Step 2: Create the user 'anita' with a non-interactive shell
+sudo useradd -s /sbin/nologin anita
+
+# Step 3: Verify the user and shell
+getent passwd anita
+
+
+
+✅ Expected output for the last command should look something like:
+anita:x:1002:1002::/home/anita:/sbin/nologin
