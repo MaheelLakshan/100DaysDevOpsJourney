@@ -1,0 +1,45 @@
+This task is about creating a custom Apache user for security purposes. You need to:
+
+Log into App Server 3 (stapp03).
+Create a user named yousuf with:
+UID = 1605
+Home directory = /var/www/yousuf
+
+# Step 1: SSH into App Server 3
+ssh banner@stapp03
+# password: BigGr33n
+
+# Step 2: Create the user 'yousuf' with UID 1605 and home directory /var/www/yousuf
+sudo useradd -u 1605 -d /var/www/yousuf -m yousuf
+
+# Step 3: Verify user details
+getent passwd yousuf
+
+
+✅ Expected verification:
+When you run:
+getent passwd yousuf
+yousuf:x:1605:1605::/var/www/yousuf:/bin/bash
+
+
+👉::::: My Explanation ::::::
+
+This confirms:
+Username = yousuf
+UID = 1605
+Home = /var/www/yousuf
+Default shell = /bin/bash (since no special shell was set)
+
+
+here -> sudo useradd -u 1605 -d /var/www/yousuf -m yousuf
+yousuf → the new username we want to create.
+-u 1605 → set the User ID (UID) to 1605. Each user in Linux has a number (UID) behind the scenes.
+-d /var/www/yousuf → tells Linux that the home folder for this user is /var/www/yousuf.
+-m → make sure that home folder is created if it doesn’t exist.
+
+
+# Why are we doing this?
+The company wants custom Apache users for each application.
+Instead of running everything as one big user (like apache or www-data), we give each app its own user.
+This way, if one app gets hacked, the attacker only gets access to that app’s user, not the whole system.
+It’s a security best practice.
