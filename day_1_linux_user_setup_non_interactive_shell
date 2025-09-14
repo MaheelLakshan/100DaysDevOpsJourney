@@ -1,24 +1,25 @@
 I need to create a user anita with a non-interactive shell (like /sbin/nologin) on App Server 3 (stapp03).
 
 # Step 1: SSH into App Server 3
+
 ssh banner@stapp03
 
 # password: BigGr33n
 
 # Step 2: Create the user 'anita' with a non-interactive shell
+
 sudo useradd -s /sbin/nologin anita
 
 # Step 3: Verify the user and shell
+
 getent passwd anita
-
-
 
 ✅ Expected output for the last command should look something like:
 anita:x:1002:1002::/home/anita:/sbin/nologin
 
 👉::::: My Explanation ::::::
 
-We’re creating a system user (anita) that tools (like the backup agent) can use, but humans cannot log in and run commands with. 
+We’re creating a system user (anita) that tools (like the backup agent) can use, but humans cannot log in and run commands with.
 This improves security and ensures the user is used only for its intended purpose.
 
 sudo useradd -s /sbin/nologin anita
@@ -35,7 +36,6 @@ So we give them a non-interactive shell: /sbin/nologin.
 Non-interactive shell =
 The user account exists (for authentication, running background processes, or tools like backup agents), but if someone tries to log in as that user, they’ll get a message like:
 This account is currently not available.
-
 
 and then disconnected.
 This is a security measure:
